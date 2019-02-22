@@ -1,9 +1,15 @@
-# Ignore Gradle project-specific cache directory
-.gradle
+# Mac
+.DS_Store
 
-# Ignore Gradle build output directory
+# Gradle
+.gradle
 build
+out
 
 # IntelliJ IDEA
 .idea
 *.iml
+
+# Tesseract
+*.log
+

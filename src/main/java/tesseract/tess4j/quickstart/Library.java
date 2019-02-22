@@ -10,17 +10,21 @@ import java.io.File;
 
 public class Library {
     public static void main(String[] args) throws TesseractException {
+        String textCleanCode = doOCR("eng", new File("src/main/resources/clean-code.png"));
+        System.out.println("Done. Result:");
+        System.out.println(textCleanCode);
+
+        String textNewTestament = doOCR("grc", new File("src/main/resources/new-testament.png"));
+        System.out.println("Done. Result:");
+        System.out.println(textNewTestament);
+    }
+
+    private static String doOCR(String language, File image) throws TesseractException {
         Tesseract tesseract = new Tesseract();
         tesseract.setDatapath("/usr/local/Cellar/tesseract/4.0.0/share/tessdata/");
-        tesseract.setLanguage("eng");
+        tesseract.setLanguage(language);
 
-        File cleanCodePng = new File("src/main/resources/clean-code.png");
-
-        System.out.println("Processing image, please wait...");
-        String text = tesseract.doOCR(cleanCodePng);
-        System.out.println("Done. Result:");
-
-        System.out.println(text);
-
+        System.out.println(String.format("Processing image '%s', please wait...", image.getName()));
+        return tesseract.doOCR(image);
     }
 }

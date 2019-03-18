@@ -1,0 +1,8 @@
+A technology that can take written words and convert them
+back into computer-readable form, provided they're in the
+right font, using the correct colors sometimes, at the right
+point size and pitch, dark enough on the paper, and you're
+prepared to spend several centuries correcting all the ones
+that came out as I's, all the O's that came out as zeroes,
+and all the colons that come out like semicolons.
+

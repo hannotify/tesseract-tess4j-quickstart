@@ -3,11 +3,11 @@
  */
 package tesseract.tess4j.quickstart;
 
-import net.sourceforge.tess4j.ITesseract;
-import net.sourceforge.tess4j.Tesseract;
-import net.sourceforge.tess4j.TesseractException;
+import net.sourceforge.tess4j.*;
 
 import java.io.File;
+import java.util.Arrays;
+import java.util.List;
 
 public class Library {
     public static void main(String[] args) throws TesseractException {
@@ -23,8 +23,15 @@ public class Library {
         tesseract.setLanguage(language);
 
         System.out.println(String.format("Processing image '%s', please wait...", image.getName()));
-        String text = tesseract.doOCR(image);
-        System.out.println("Done. Result:");
-        System.out.println(text);
+
+        List<OCRResult> results = tesseract.createDocumentsWithResults(
+                new String[]{image.getAbsolutePath()},
+                new String[]{"src/main/resources"},
+                Arrays.asList(ITesseract.RenderedFormat.TEXT),
+                ITessAPI.TessPageIteratorLevel.RIL_WORD
+        );
+
+        System.out.println("Done. Results:");
+        System.out.println(results);
     }
 }

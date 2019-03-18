@@ -13,8 +13,9 @@ public class Library {
     public static void main(String[] args) throws TesseractException {
 //        doOCR("eng", new File("src/main/resources/clean-code.png"));
 //        doOCR("grc", new File("src/main/resources/new-testament.png"));
-        doOCR("eng", new File("src/main/resources/joke-lowres.png"));
-        doOCR("eng", new File("src/main/resources/joke-hires.png"));
+//        doOCR("eng", new File("src/main/resources/joke-lowres.png"));
+//        doOCR("eng", new File("src/main/resources/joke-hires.png"));
+        doOCR("eng+deu+fra+ita+spa+por", new File("src/main/resources/eurotext.png"));
     }
 
     private static void doOCR(String language, File image) throws TesseractException {
@@ -28,7 +29,7 @@ public class Library {
                 new String[]{image.getAbsolutePath()},
                 new String[]{"src/main/resources"},
                 Arrays.asList(ITesseract.RenderedFormat.TEXT),
-                ITessAPI.TessPageIteratorLevel.RIL_WORD
+                ITessAPI.TessPageIteratorLevel.RIL_TEXTLINE
         );
 
         System.out.println("Done. Results:");

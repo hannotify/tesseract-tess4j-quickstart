@@ -17,15 +17,15 @@ public class Library {
     public static void main(String[] args) throws TesseractException, IOException {
 //        doOCR("eng", new File("src/main/resources/clean-code.png"));
 //        doOCR("grc", new File("src/main/resources/new-testament.png"));
-//        doOCR("eng", new File("src/main/resources/joke-lowres.png"));
-//        doOCR("eng", new File("src/main/resources/joke-hires.png"));
+//        doOCR("eng", new File("src/main/resources/joke-lowres.png"), false);
+        doOCR("eng", new File("src/main/resources/joke-hires.png"), false);
 //        doOCR("eng+deu+fra+ita+spa+por", new File("src/main/resources/eurotext.png"));
-        doOCR("eng", new File("src/main/resources/skewed.jpg"), true);
+//        doOCR("eng", new File("src/main/resources/skewed.jpg"), true);
     }
 
     private static void doOCR(String language, File image, boolean optimizeImage) throws TesseractException, IOException {
         ITesseract tesseract = new Tesseract();
-        tesseract.setDatapath("/usr/local/Cellar/tesseract/4.0.0/share/tessdata/");
+        tesseract.setDatapath("/usr/local/Cellar/tesseract/4.0.0/share/tessdata_best/");
         tesseract.setLanguage(language);
 
         System.out.println(String.format("Processing image '%s', please wait...", image.getName()));
@@ -50,7 +50,7 @@ public class Library {
         File optimizedImageFile = new File(imageFile.getName() + "_optimized.png");
 
         System.out.print("Optimizing image... ");
-        bufferedImage = ImageHelper.rotateImage(bufferedImage, -5git);
+        bufferedImage = ImageHelper.rotateImage(bufferedImage, -5);
 
         boolean succeeded = ImageIO.write(bufferedImage, "png", optimizedImageFile);
 

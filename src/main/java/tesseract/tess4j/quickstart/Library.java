@@ -4,26 +4,35 @@
 package tesseract.tess4j.quickstart;
 
 import net.sourceforge.tess4j.*;
+import net.sourceforge.tess4j.util.ImageHelper;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
 public class Library {
-    public static void main(String[] args) throws TesseractException {
+    public static void main(String[] args) throws TesseractException, IOException {
 //        doOCR("eng", new File("src/main/resources/clean-code.png"));
 //        doOCR("grc", new File("src/main/resources/new-testament.png"));
 //        doOCR("eng", new File("src/main/resources/joke-lowres.png"));
 //        doOCR("eng", new File("src/main/resources/joke-hires.png"));
-        doOCR("eng+deu+fra+ita+spa+por", new File("src/main/resources/eurotext.png"));
+//        doOCR("eng+deu+fra+ita+spa+por", new File("src/main/resources/eurotext.png"));
+        doOCR("eng", new File("src/main/resources/skewed.jpg"), true);
     }
 
-    private static void doOCR(String language, File image) throws TesseractException {
+    private static void doOCR(String language, File image, boolean optimizeImage) throws TesseractException, IOException {
         ITesseract tesseract = new Tesseract();
         tesseract.setDatapath("/usr/local/Cellar/tesseract/4.0.0/share/tessdata/");
         tesseract.setLanguage(language);
 
         System.out.println(String.format("Processing image '%s', please wait...", image.getName()));
+
+        if (optimizeImage) {
+            image = optimizeImage(image);
+        }
 
         List<OCRResult> results = tesseract.createDocumentsWithResults(
                 new String[]{image.getAbsolutePath()},
@@ -34,5 +43,19 @@ public class Library {
 
         System.out.println("Done. Results:");
         System.out.println(results);
+    }
+
+    private static File optimizeImage(File imageFile) throws IOException {
+        BufferedImage bufferedImage = ImageIO.read(imageFile);
+        File optimizedImageFile = new File(imageFile.getName() + "_optimized.png");
+
+        System.out.print("Optimizing image... ");
+        bufferedImage = ImageHelper.rotateImage(bufferedImage, -5git);
+
+        boolean succeeded = ImageIO.write(bufferedImage, "png", optimizedImageFile);
+
+        System.out.println(succeeded ? "succeeded." : "failed.");
+
+        return optimizedImageFile;
     }
 }

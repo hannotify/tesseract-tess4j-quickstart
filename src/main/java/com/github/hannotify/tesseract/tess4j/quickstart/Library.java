@@ -3,12 +3,22 @@
  */
 package com.github.hannotify.tesseract.tess4j.quickstart;
 
+import java.io.File;
 import net.sourceforge.tess4j.Tesseract;
+import net.sourceforge.tess4j.TesseractException;
 
 public class Library {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws TesseractException {
         Tesseract tesseract = new Tesseract();
         tesseract.setDatapath("/usr/local/Cellar/tesseract/4.1.1/share/tessdata");
         tesseract.setLanguage("eng");
+
+        File cleanCode = new File("src/main/resources/clean-code.png");
+
+        System.out.println("Processing image, please wait...");
+        String text = tesseract.doOCR(cleanCode);
+        System.out.println("Done. Result:");
+
+        System.out.println(text);
     }
 }

@@ -3,8 +3,12 @@
  */
 package com.github.hannotify.tesseract.tess4j.quickstart;
 
+import net.sourceforge.tess4j.Tesseract;
+
 public class Library {
-    public boolean someLibraryMethod() {
-        return true;
+    public static void main(String[] args) {
+        Tesseract tesseract = new Tesseract();
+        tesseract.setDatapath("/usr/local/Cellar/tesseract/4.1.1/share/tessdata");
+        tesseract.setLanguage("eng");
     }
 }

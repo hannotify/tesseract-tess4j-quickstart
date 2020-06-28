@@ -9,14 +9,16 @@ import net.sourceforge.tess4j.TesseractException;
 
 public class Library {
     public static void main(String[] args) throws TesseractException {
-        Tesseract tesseract = new Tesseract();
-        tesseract.setDatapath("/usr/local/Cellar/tesseract/4.1.1/share/tessdata");
-        tesseract.setLanguage("eng");
+        doOCR("grc", new File("src/main/resources/new-testament.png"));
+    }
 
-        File cleanCode = new File("src/main/resources/clean-code.png");
+    private static void doOCR(String language, File image) throws TesseractException {
+        var tesseract = new Tesseract();
+        tesseract.setDatapath("/usr/local/Cellar/tesseract/4.1.1/share/tessdata");
+        tesseract.setLanguage(language);
 
         System.out.println("Processing image, please wait...");
-        String text = tesseract.doOCR(cleanCode);
+        var text = tesseract.doOCR(image);
         System.out.println("Done. Result:");
 
         System.out.println(text);

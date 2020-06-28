@@ -30,3 +30,6 @@ build/
 # IntelliJ IDEA
 .idea/
 *.iml
+
+# OCR
+src/main/resources/ocr.txt

@@ -15,13 +15,19 @@ import net.sourceforge.tess4j.util.ImageHelper;
 
 public class Library {
     public static void main(String[] args) throws TesseractException, IOException {
-        doOCR("eng", new File("src/main/resources/skewed.jpg"), false);
-        doOCR("eng", new File("src/main/resources/skewed.jpg"), true);
+        doOCR("eng", new File("src/main/resources/joke-hires.png"), false, false);
+        doOCR("eng", new File("src/main/resources/joke-hires.png"), false, true);
     }
 
-    private static void doOCR(String language, File image, boolean optimizeImage) throws TesseractException, IOException {
+    private static void doOCR(String language, File image, boolean optimizeImage, boolean useBestData) throws TesseractException, IOException {
         var tesseract = new Tesseract();
-        tesseract.setDatapath("/usr/local/Cellar/tesseract/4.1.1/share/tessdata");
+        var datapath = "/usr/local/Cellar/tesseract/4.1.1/share/tessdata";
+
+        if (useBestData) {
+            datapath += "-best";
+        }
+
+        tesseract.setDatapath(datapath);
         tesseract.setLanguage(language);
 
         System.out.println("Processing image, please wait...");

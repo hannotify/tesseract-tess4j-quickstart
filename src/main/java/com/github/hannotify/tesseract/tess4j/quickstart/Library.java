@@ -9,7 +9,8 @@ import net.sourceforge.tess4j.TesseractException;
 
 public class Library {
     public static void main(String[] args) throws TesseractException {
-        doOCR("grc", new File("src/main/resources/new-testament.png"));
+        doOCR("eng", new File("src/main/resources/joke-lowres.png"));
+        doOCR("eng", new File("src/main/resources/joke-hires.png"));
     }
 
     private static void doOCR(String language, File image) throws TesseractException {

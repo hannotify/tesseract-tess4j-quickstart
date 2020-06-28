@@ -12,8 +12,7 @@ import net.sourceforge.tess4j.TesseractException;
 
 public class Library {
     public static void main(String[] args) throws TesseractException {
-        doOCR("eng", new File("src/main/resources/joke-lowres.png"));
-        doOCR("eng", new File("src/main/resources/joke-hires.png"));
+        doOCR("eng+deu+fra+ita+spa+por", new File("src/main/resources/eurotext.png"));
     }
 
     private static void doOCR(String language, File image) throws TesseractException {
@@ -27,7 +26,7 @@ public class Library {
                 image.getAbsolutePath(),
                 "src/main/resources/ocr",
                 List.of(ITesseract.RenderedFormat.TEXT),
-                ITessAPI.TessPageIteratorLevel.RIL_WORD
+                ITessAPI.TessPageIteratorLevel.RIL_TEXTLINE
         );
 
         System.out.println("Done. Result:");
